@@ -10,11 +10,29 @@ const Navbar = () => {
     setIsOpen(!isOpen);
   };
 
-  const [dark, setDark] = React.useState(false);
-  const darkModeHandler = () => {
-    setDark(!dark);
-    document.body.classList.toggle("dark");
+  const closeMenu = () => {
+    setIsOpen(false);
   };
+
+  React.useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const nav = document.querySelector("nav");
+      const burger = document.querySelector("[data-burger]");
+      if (
+        isOpen &&
+        nav &&
+        !nav.contains(event.target as Node) &&
+        !burger?.contains(event.target as Node)
+      ) {
+        closeMenu();
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isOpen]);
 
   return (
     <nav
@@ -28,15 +46,16 @@ const Navbar = () => {
                     "
     >
       <a
-        href="#"
+        href="/"
         className="flex items-center hover:underline text-mineshaft dark:text-sandybrown"
       >
-        <img src="logo.webp" className="w-20" alt="TRANDAREDS IF LOGO" />
+        <img src="/logo.webp" className="w-20" alt="TRANDAREDS IF LOGO" />
         <h2 className="text-codgray dark:text-sandybrown font-bold md:font-semibold lg:whitespace-nowrap">
           TRANDAREDS IF
         </h2>
       </a>
       <NavLinks
+        onClick={closeMenu}
         className={`
                 bg-sandybrown dark:bg-slate
                 flex flex-col space-y-2 p-2 pt-4
@@ -59,6 +78,7 @@ const Navbar = () => {
       />
       <div onClick={toggleMenu}>
         <Burger
+          data-burger
           className="block absolute right-0 h-20 p-2 md:hidden z-50 dark:bg-slate bg-sandybrown"
           stroke="stroke-codgray dark:stroke-sandybrown"
         />

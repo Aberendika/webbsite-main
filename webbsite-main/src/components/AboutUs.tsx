@@ -6,7 +6,7 @@ interface AboutUsProps {
 }
 
 export default function AboutUs({ src }: AboutUsProps) {
-  const initProps: AboutUsProps[] = {
+  const initProps: AboutUsProps = {
     src: "https://placehold.co/600x400",
   };
   return (
@@ -77,7 +77,6 @@ export default function AboutUs({ src }: AboutUsProps) {
         items-center
         "
             >
-              <Button isLink={true} linkTo="/about" text="Läs mer!"></Button>
             </div>
           </div>
         </div>
