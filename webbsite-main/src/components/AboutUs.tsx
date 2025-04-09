@@ -7,7 +7,7 @@ interface AboutUsProps {
 
 export default function AboutUs({ src }: AboutUsProps) {
   const initProps: AboutUsProps = {
-    src: "https://placehold.co/600x400",
+    src: "tif-team.jpg",
   };
   return (
     <>
@@ -36,11 +36,15 @@ export default function AboutUs({ src }: AboutUsProps) {
         >
           <img
             src={`${initProps.src}`}
+            alt="team"
             className="
 
-          md:w-xl md:max-w-screen  
-          mx-auto md:mx-0  
-        "
+          w-full 
+          md:w-[600px] md:h-[400px] 
+          mx-auto 
+          md:mx-0 
+          object-cover 
+          "
           />
           <div
             className="
