@@ -7,7 +7,7 @@ interface AboutUsProps {
 
 export default function AboutUs({ src }: AboutUsProps) {
   const initProps: AboutUsProps = {
-    src: "tif-team.jpg",
+    src: "https://placehold.co/600x400",
   };
   return (
     <>
@@ -35,16 +35,17 @@ export default function AboutUs({ src }: AboutUsProps) {
         "
         >
           <img
-            src={`${initProps.src}`}
-            alt="team"
+            src="/tif-team.jpg"
             className="
 
           w-full 
-          md:w-[600px] md:h-[400px] 
+          md:w-1/2 
+          lg:w-[600px] md:h-auto
           mx-auto 
           md:mx-0 
           object-cover 
-          "
+          
+        "
           />
           <div
             className="
@@ -80,8 +81,7 @@ export default function AboutUs({ src }: AboutUsProps) {
         flex flex-col
         items-center
         "
-            >
-            </div>
+            ></div>
           </div>
         </div>
       </div>

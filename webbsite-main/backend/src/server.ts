@@ -30,8 +30,8 @@ app.post('/api/send-email/', async (req, res) => {
   const email = req.body;
   try {
     const { data, error } = await resend.emails.send({
-      from: `Trandareds IF <info@trandaredsif.se>`, // THIS SHOULD BE CHANGED TO THE APPROPRIATE MAIL
-      to: [`trandaredsif@outlook.com`], // SEND TO USER, AS WELL AS A CARBON COPY TO ORGS INBOX
+      from: `hello <automagic@resend.lappelduvide.net>`, // THIS SHOULD BE CHANGED TO THE APPROPRIATE MAIL
+      to: [`${email.to}`, `automagic@resend.lappelduvide.net`], // SEND TO USER, AS WELL AS A CARBON COPY TO ORGS INBOX
       subject: `${email.subject}`,
       html: `${email.body}`,
     });

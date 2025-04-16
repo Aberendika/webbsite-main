@@ -42,7 +42,6 @@ export default function Footer({}: FooterProps) {
             <p className="text-mineshaft dark:text-sandybrown text-xs md:text-sm lg:text-base">
               BORÅS
             </p>
-            
           </div>
           <div className="flex flex-col">
             <h5
@@ -110,7 +109,6 @@ export default function Footer({}: FooterProps) {
               PLUS Margret
             </a>
           </div>
-          
           <div className="flex flex-col">
             <h5
               className="
@@ -124,10 +122,11 @@ export default function Footer({}: FooterProps) {
               KONTAKTA OSS
             </h5>
             <p className="text-mineshaft dark:text-sandybrown text-xs md:text-sm lg:text-base">
-              Trandaredsif@outlook.com
+              <a href="mailto:Trandaredsif@outlook.com">
+                Trandaredsif@outlook.com
+              </a>
             </p>
           </div>
-
           <div className="flex flex-col">
             <h5
               className="

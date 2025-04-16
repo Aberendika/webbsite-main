@@ -47,7 +47,7 @@ const Navbar = () => {
     >
       <a
         href="/"
-        className="flex items-center hover:underline text-mineshaft dark:text-sandybrown"
+        className="flex items-center hover:underline text-mineshaft dark:text-sandybrown cursor-pointer z-50"
       >
         <img src="/logo.webp" className="w-20" alt="TRANDAREDS IF LOGO" />
         <h2 className="text-codgray dark:text-sandybrown font-bold md:font-semibold lg:whitespace-nowrap">
