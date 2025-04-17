@@ -24,7 +24,7 @@ const StatusMessage = (str: any) => {
 };
 
 export default function ContactForm() {
-  const send = process.env.REACT_APP_SEND;
+  const send = import.meta.env.VITE_SEND_URL;
   const [disabled, setDisabled] = useState(false);
   const [emailStatus, setEmailStatus] = useState("Not Sent");
   const {

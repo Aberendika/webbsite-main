@@ -14,7 +14,7 @@ app.use(
   }),
 );
 app.use(express.json());
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = new Resend(process.env.VITE_SEND_URL);
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
@@ -30,8 +30,8 @@ app.post('/api/send-email/', async (req, res) => {
   const email = req.body;
   try {
     const { data, error } = await resend.emails.send({
-      from: `hello <automagic@resend.lappelduvide.net>`, // THIS SHOULD BE CHANGED TO THE APPROPRIATE MAIL
-      to: [`${email.to}`, `automagic@resend.lappelduvide.net`], // SEND TO USER, AS WELL AS A CARBON COPY TO ORGS INBOX
+      from: `hello <info@trandaredsif.se>`, // THIS SHOULD BE CHANGED TO THE APPROPRIATE MAIL
+      to: [`${email.to}`, `info@trandaredsif.se`], // SEND TO USER, AS WELL AS A CARBON COPY TO ORGS INBOX
       subject: `${email.subject}`,
       html: `${email.body}`,
     });
