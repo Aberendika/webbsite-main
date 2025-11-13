@@ -106,6 +106,7 @@ export default function SponsorSection() {
                 "
                     style={{ margin: "auto" }}
                     href={`${sponsor.SponsorLink}`}
+                    target="_blank"
                   >
                     <img
                       src={`${sponsor.SponsorLogo}`}
