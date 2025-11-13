@@ -108,6 +108,20 @@ export default function Footer({}: FooterProps) {
             >
               PLUS Margret
             </a>
+            <a
+              className="text-xs md:text-sm lg:text-base"
+              href="https://moccadeli.se/mocca-deli-boras/"
+              target="_blank"
+            >
+              Mocca Deli
+            </a>
+            <a
+              className="text-xs md:text-sm lg:text-base"
+              href="https://allegio.se/ort/boras/"
+              target="_blank"
+            >
+              Allegio
+            </a>
           </div>
           <div className="flex flex-col">
             <h5

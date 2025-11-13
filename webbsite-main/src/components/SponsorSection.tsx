@@ -64,6 +64,16 @@ export default function SponsorSection() {
       SponsorLink: "https://bakerlogistics.se/",
       SponsorLogo: "baker-logistics-neg.png",
     },
+    {
+      SponsorName: "Allegio",
+      SponsorLink: "https://allegio.se/ort/boras/",
+      SponsorLogo: "allegioo.png",
+    },
+    {
+      SponsorName: "Mocca deli",
+      SponsorLink: "https://moccadeli.se/mocca-deli-boras/",
+      SponsorLogo: "moccadeli.png",
+    },
   ];
   const [sponsors, setSponsors] = useState(initSponsors);
 
