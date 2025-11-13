@@ -27,7 +27,8 @@ const Match = ({ showLoadMore = false }: MatchProps) => {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
-  const fromDate = "2024-01-01";
+  // Du kan justera datumintervall om du vill, men vi hämtar alla matcher i framtiden och bakåt.
+  const fromDate = "2024-01-01";  
   const toDate = "2030-12-31";
 
   useEffect(() => {
@@ -49,6 +50,8 @@ const Match = ({ showLoadMore = false }: MatchProps) => {
         }
 
         const result = await response.json();
+
+        // Konvertera till Match-objekt
         const fetchedMatches: Match[] = result.games.map((match: any) => ({
           gameId: match.gameId,
           homeTeamName: match.homeTeamName,
@@ -62,15 +65,21 @@ const Match = ({ showLoadMore = false }: MatchProps) => {
           awayTeamImageUrl: match.awayTeamImageUrl,
         }));
 
-        const sortedMatches = fetchedMatches.sort(
+        const now = new Date();
+
+        // Filtrera så att vi bara får matcher som är spelade (dvs. där tiden är tidigare än nu)
+        const playedMatches = fetchedMatches.filter(
+          (match) => new Date(match.time) < now
+        );
+
+        // Sortera från nyast till äldst (senast spelad först)
+        const sortedMatches = playedMatches.sort(
           (a, b) => new Date(b.time).getTime() - new Date(a.time).getTime()
         );
 
         setMatches(sortedMatches);
       } catch (err) {
-        setError(
-          err instanceof Error ? err.message : "Ett okänt fel inträffade"
-        );
+        setError(err instanceof Error ? err.message : "Ett okänt fel inträffade");
       } finally {
         setLoading(false);
       }
@@ -82,7 +91,6 @@ const Match = ({ showLoadMore = false }: MatchProps) => {
   const visibleMatches = matches.slice(0, visibleCount);
 
   const loadMoreMatches = () => {
-    console.log("Before:", visibleCount, matches.length);
     setVisibleCount((prevCount) => prevCount + 4);
   };
 

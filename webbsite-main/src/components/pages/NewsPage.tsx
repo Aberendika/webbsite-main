@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import NewsInfoHeader from "../NewsInfoHeader";
-import { News } from "../News";
+import News from "../News";
 
 export default function NewsPage() {
   useEffect(() => {

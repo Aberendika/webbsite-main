@@ -33,28 +33,38 @@ const FutureMatches = () => {
   useEffect(() => {
     const fetchMatches = async () => {
       try {
-        const response = await fetch("./testdata.json", {
-          method: "GET",
-        });
-        //   https://forening-api.svenskfotboll.se/club/upcoming-games?from=${fromDate}&to=${toDate}&w=3&take=1000&includeCanceled=true,
-        //   {
-        //     method: "GET",
-        //     headers: {
-        //       ApiKey: import.meta.env.VITE_FOGIS_API_KEY || "",
-        //     },
-        //   }
-        // );
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
+        // 🔑 Hämta API-nyckeln från miljövariabel
+        const apiKey = import.meta.env.VITE_FOGIS_API_KEY;
+
+        if (!apiKey) {
+          throw new Error("Ingen API-nyckel hittades! Lägg till VITE_FOGIS_API_KEY i din .env-fil.");
         }
+
+        // 🛰️ Hämta kommande matcher från Svensk Fotboll API
+        const response = await fetch(
+          `https://forening-api.svenskfotboll.se/club/upcoming-games?from=${fromDate}&to=${toDate}&w=3&take=1000&includeCanceled=true`,
+          {
+            method: "GET",
+            headers: {
+              ApiKey: apiKey,
+            },
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error(`HTTP-fel: ${response.status}`);
+        }
+
         const data = await response.json();
 
+        // 🔎 Filtrera bort matcher som ligger i det förflutna
         const futureGames = data.games.filter(
-          (game: FutureMatches) =>
-            new Date(game.timeAsDateTime) >= new Date(today)
+          (game: FutureMatches) => new Date(game.timeAsDateTime) >= new Date(today)
         );
+
         setAllMatches(futureGames);
       } catch (err: any) {
+        console.error("Fel vid hämtning av matcher:", err);
         setError(err.message);
       } finally {
         setLoading(false);
@@ -73,6 +83,7 @@ const FutureMatches = () => {
     <div className="bg-wheat dark:bg-codgray text-black dark:text-sandybrown grid p-5 grid-cols-1 gap-5">
       <SectionHeading text="Kommande matcher" />
       <LoadingAndErrorMatch loading={loading} error={error} />
+
       {!loading && !error && (
         <>
           {visibleMatches.length > 0 ? (
@@ -94,32 +105,17 @@ const FutureMatches = () => {
                       </p>
                       <p>
                         <strong>Datum:</strong>{" "}
-                        {new Date(match.timeAsDateTime).toLocaleDateString(
-                          "sv-SE"
-                        )}
+                        {new Date(match.timeAsDateTime).toLocaleDateString("sv-SE")}
                       </p>
                       <p>
                         <strong>Serie:</strong> {match.competitionName}
                       </p>
                       <p>
-                        <strong>Plats:</strong> {match.venueName},{" "}
-                        {match.venueLocality}
+                        <strong>Plats:</strong> {match.venueName}, {match.venueLocality}
                       </p>
-                      {match.isCancelled && (
-                        <p>
-                          <strong>Inställd:</strong> Ja
-                        </p>
-                      )}
-                      {match.isPostponed && (
-                        <p>
-                          <strong>Förskjuten:</strong> Ja
-                        </p>
-                      )}
-                      {match.isAbandoned && (
-                        <p>
-                          <strong>Match avbruten:</strong> Ja
-                        </p>
-                      )}
+                      {match.isCancelled && <p><strong>Inställd:</strong> Ja</p>}
+                      {match.isPostponed && <p><strong>Förskjuten:</strong> Ja</p>}
+                      {match.isAbandoned && <p><strong>Match avbruten:</strong> Ja</p>}
                     </div>
                     <img
                       src={match.awayTeamImageUrl}
